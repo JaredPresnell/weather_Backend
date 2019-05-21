@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 
 const request = require('request');
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5001;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));		
 
@@ -14,13 +14,11 @@ const https = require('https');
 var Bluebird = require('bluebird');
 fetch.Promise = Bluebird;
 
-// https://api.darksky.net/forecast/88030114c5e47763a011a75e7a10c633/LAT,LONG
-// https://api.mapbox.com/geocoding/v5/mapbox.places/city.json?access_token=pk.eyJ1IjoiamdhdmlyMjMiLCJhIjoiY2pwMzMwanYwMDJkeTNwcDduODR5bXRlayJ9.p_HLVm6sK-X0d5-JIpSdxA
-
-// ** add app.post('/api/savelocaluser')
+var mapbox_key = require('./mapbox_key');
 app.post('/getLatLong', (req,res)=>{
 	console.log(process.env.DARKSKY_ACCESS);
-	var latLongUri = 'https://api.mapbox.com/geocoding/v5/mapbox.places/'+req.body.city+'.json?access_token=' + process.env.DARKSKY_ACCESS;
+//    var latLongUri = 'https://api.mapbox.com/geocoding/v5/mapbox.places/'+req.body.city+'.json?access_token=pk.eyJ1IjoiamdhdmlyMjMiLCJhIjoiY2pwMzMwanYwMDJkeTNwcDduODR5bXRlayJ9.p_HLVm6sK-X0d5-JIpSdxA';
+        var latLongUri = 'https://api.mapbox.com/geocoding/v5/mapbox.places/'+req.body.city+'.json?access_token='+mapbox_key;
 	request({
       url: latLongUri,
       json: true
