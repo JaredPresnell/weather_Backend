@@ -19,7 +19,8 @@ fetch.Promise = Bluebird;
 
 // ** add app.post('/api/savelocaluser')
 app.post('/getLatLong', (req,res)=>{
-	var latLongUri = 'https://api.mapbox.com/geocoding/v5/mapbox.places/'+req.body.city+'.json?access_token=pk.eyJ1IjoiamdhdmlyMjMiLCJhIjoiY2pwMzMwanYwMDJkeTNwcDduODR5bXRlayJ9.p_HLVm6sK-X0d5-JIpSdxA';
+	console.log(process.env.DARKSKY_ACCESS);
+	var latLongUri = 'https://api.mapbox.com/geocoding/v5/mapbox.places/'+req.body.city+'.json?access_token=' + process.env.DARKSKY_ACCESS;
 	request({
       url: latLongUri,
       json: true
